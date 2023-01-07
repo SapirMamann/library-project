@@ -1,5 +1,23 @@
-<a href="books/">Sapir's Library</a>
+<header>
+    <div name="logo">
+        <a href="{% url 'index' %}">
+            <h1>Sapir's Library</h1>
+        </a>
+    </div>
+    {% if request.user.is_authenticated %}
+    <div name="logged in">
+        <p>{{user.username}}</p>
+    </div>
+    
+    <div>
+        <a href="{% url 'logout' %}">sign out</a>
+    </div>
 
+    {% else %}
+    <div name="not logged in">
+        <a href="{% url 'login' %}">
+            <p>login</p>
+        </a>
+    {% endif %}
 
-<p>add if /navbar.html    Hello {{request.user}}</p>
-
+</header>
