@@ -1,33 +1,22 @@
 {% extends 'main.html' %}
 
-
 {% block content %}
-
 <style>
     .index-container{
         display: grid;
-        grid-template-columns: 1fr 3fr 1fr 1fr;
+        grid-template-columns: 1fr 3fr 1fr;
     }
 </style>
 
 <div class="index-container">
     <div>
-        {{msg}}
-    </div>
 
+    </div>
     <div>
         {% include 'app/topics_component.html' %}
     </div>
-
     <div>
         {% include 'app/feed_component.html' %}
-    </div>
-
-    <div>
-        <hr>
-        <a href="{% url 'books-list' %}">All Books</a>
-        <hr>
-        <a href="{% url 'add-book' %}">Add a Book</a>
     </div>
 </div>
 

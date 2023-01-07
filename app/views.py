@@ -1,5 +1,5 @@
 from .models import Customer, Book, Loan
-from .forms import BookForm
+from .forms import BookForm, CustForm
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -13,13 +13,16 @@ def index(request):
     """ 
     home page
     """
-    return render(request, 'app/index.html', {'msg': 'main page'})
+    books = Book.objects.all()
+    book_count = books.count()
+    context = {'msg': 'main page','books': books, 'book_count': book_count}
+    return render(request, 'app/index.html', context)
 
 
 def login_page(request):
-    page = 'app/login'  #app/login
+    page = 'login'  #app/login
     # return render(request, 'app/login_register_page.html', {'msg': 'msg'})
-    if request.user.is_authenticated():                         #a logged in user cant get to the log in page
+    if request.user.is_authenticated:                         #a logged in user cant get to the log in page
         return redirect('index')
     
     if request.method == 'POST':
@@ -46,21 +49,7 @@ def login_page(request):
     context = {'page': page}
     return render(request, 'app/login_register.html', context)
         
-    
-          
-
-        # else:
-        # 
-    
-    
-    # 
-    
-    # # if request.user.is_authenticated:  #a logged in user cant manually go to login page.
-    # #     return redirect('index')
-    
-    # if request.method == 'POST':
-        
-    #     
+      
 def logout_page(request):
     logout(request)
     return redirect('index')
@@ -69,16 +58,19 @@ def logout_page(request):
 def register_page(request):
     form = UserCreationForm()
     
-    if form.is_valid():
-        user = form.save()   #<< commit false
-        user.username = user.username.lower()
-        user.save()
-        login(request, user)
-        return redirect('index')
-    else:
-        return HttpResponse('ann error occured during registeration')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()   #<< commit false
+            user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('index')
+        else:
+            return HttpResponse('an error occured during registeration')
     
-    # context = {'form': form}
+    context = {'form': form}
+    return render(request, 'app/login_register.html', context)
         
         
 def add_book(request):
@@ -86,6 +78,7 @@ def add_book(request):
     add a new book
     """
     form = BookForm()
+    """books = books.objects.all -> then i can check if book already exists"""
     
     if request.method == 'POST':
         form = BookForm(request.POST)
@@ -120,6 +113,19 @@ def add_cust(request):
     """
     add a new customer
     """
+    form = CustForm()
+    
+    if request.method == "POST":
+        form = CustForm()
+        Customer.objects.create(
+            name = request.POST.get('name'),
+            address = request.POST.get('address'),
+            age = request.POST.get('age'),
+        )
+        return redirect('books-list')
+    
+    context = {'form': form}
+    return render(request, 'app/cust_form.html', context)
 
 def cust_list(request):
     """ 
