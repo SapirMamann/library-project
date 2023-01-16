@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div>
+    {% if custs is not null%}
+    {% for cust in custs %}
+        <a href="{% url 'cust-detail' cust.id %}">{{cust.name}} </a>
+        <hr>
+    {% endfor %}
+    {% else %}
+    <p>not</p>
+    {% endif %}
+    <!-- {{custs}} -->
+</div>
+{% endblock content %}

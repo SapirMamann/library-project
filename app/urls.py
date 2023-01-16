@@ -14,12 +14,12 @@ urlpatterns = [
     path('book/<str:pk>/', views.book_detail, name='book-detail'),
 
     path('add_cust/', views.add_cust, name='add-cust'),
-    path('customers/', views.cust_list, name='customers-list'),
-    path('customer/<str:pk/', views.cust_detail, name='cust-detail'),
+    path('customers/', views.cust_list, name='custs-list'),
+    path('customer/<str:pk>/', views.cust_detail, name='cust-detail'),
     
     path('add_loan/', views.add_loan, name='add-loan'),
     path('loans/', views.loans_list, name='loans-list'),
-    path('loan/<str:pk/', views.loan_detail, name='loan_detail'),
+    path('loan/<str:pk>/', views.loan_detail, name='loan-detail'),
     
 
 ]

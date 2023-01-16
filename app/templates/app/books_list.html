@@ -1,13 +1,12 @@
 {% extends 'main.html' %}
 
 {% block content %}
-
 <div>
-    {% for book in books %}
-    {{book.id}} -- {{book}} -- {{book.author}} -- {{book.genre}} 
-        <a href="{% url 'book-detail' book.id %}"> Go to specific book</a>
+    {% for book in books %} 
+        <a href="{% url 'book-detail' book.id %}">
+            {{book.id}} -- {{book}} -- {{book.author}} -- {{book.genre}}
+        </a>
         <hr>
     {% endfor %}
 </div>
-
 {% endblock content %}

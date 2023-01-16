@@ -1,5 +1,5 @@
 from .models import Customer, Book, Loan
-from .forms import BookForm, CustForm
+from .forms import BookForm, CustForm, LoanForm
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -117,12 +117,13 @@ def add_cust(request):
     
     if request.method == "POST":
         form = CustForm()
+        
         Customer.objects.create(
             name = request.POST.get('name'),
             address = request.POST.get('address'),
             age = request.POST.get('age'),
         )
-        return redirect('books-list')
+        return redirect('custs-list')
     
     context = {'form': form}
     return render(request, 'app/cust_form.html', context)
@@ -131,27 +132,56 @@ def cust_list(request):
     """ 
     show all customers
     """
+    custs = Customer.objects.all()
+    
+    context = {'custs': custs}
+    return render(request, 'app/custs_list.html', context)
     
     
-def cust_detail(request):
+def cust_detail(request, pk):
     """ 
     shows details of a specific customer
     """
+    cust = Customer.objects.get(id=pk)
     
+    context = {'cust': cust}
+    return render(request, 'app/cust_detail.html', context)
 
 def add_loan(request):
     """
     create a new loan
     """
-
+    form = LoanForm()
+    
+    if request.method == "POST":
+        # if form.is_valid():
+            form = LoanForm
+            book_id = request.POST['book']
+            cust_name = request.POST['customer']
+            Loan.objects.create(
+                book = Book.objects.get(id=int(book_id)),
+                customer = Customer.objects.get(id=int(cust_name)),
+                # loan_date  and return date doesnt really matter i just need to make sure it automatically calculate the return date
+            )
+            return redirect('loans-list')
+        
+    context = {'form': form}
+    return render(request, 'app/loan_form.html', context)
+    
 
 def loans_list(request):
     """
     show all loans
     """
-    
+    loans = Loan.objects.all()
+    context = {'loans': loans}
+    # context = {}
+    return render(request, 'app/loans_list.html', context)
 
-def loan_detail(request):
+def loan_detail(request, pk):
     """
     show details of a specific loan
     """
+    loan = Loan.objects.get(pk=pk)
+    context ={'loan': loan}
+    return render(request, 'app/loan_detail.html',context)

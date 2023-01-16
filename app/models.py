@@ -20,10 +20,10 @@ class Book(models.Model):
 class Customer(models.Model):
     name = models.CharField(max_length=45)
     address = models.CharField(max_length=100)
-    age = models.PositiveIntegerField()
+    age = models.PositiveIntegerField(default=1)
     # books_loaned = models.ForeignKey()
     
-        
+    
 class Loan(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -31,5 +31,5 @@ class Loan(models.Model):
     return_date = models.DateTimeField(auto_now=True)
     # returned = models.BooleanField()
 
-    
-
+    def __str__(self):
+        return self.book

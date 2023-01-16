@@ -1,0 +1,12 @@
+{%  extends 'main.html' %}
+
+{% block content %}
+<div>
+    {% for loan in loans %}
+        <a href="{% url 'loan-detail' loan.id %}">
+        {{loan.book.name}} | loaned by {{loan.customer.name}}  |  should be returned by {{loan.return_date}}
+        </a>
+        <hr>
+    {% endfor %}
+</div>
+{% endblock content %}
