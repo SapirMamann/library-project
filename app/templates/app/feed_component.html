@@ -1,6 +1,16 @@
-<hr>
-<a href="{% url 'books-list' %}">All Books</a>
-<hr>
-<a href="{% url 'add-book' %}">Add a Book</a>
-<hr>
-<a href="{% url 'add-cust' %}">Add Customer</a>
+<div class="absolute right-20">
+    <a href="{% url 'books_list' %}">
+        <div class="w-[12rem] bg-[#1c1c1c] hover:bg-[#272727] rounded-md p-4 mt-10 mb-4" href="{% url 'books_list' %}">
+             <span class="mr-5"><i class="fa-solid fa-book-open"></i></span>All Books</div>
+    </a>
+
+    <a href="{% url 'add-book' %}">
+        <div class="w-[12rem] bg-[#1c1c1c] hover:bg-[#272727] rounded-md p-4 my-4" href="{% url 'add-book' %}">
+             <span class="mr-6"><i class="fa-solid fa-book"></i></span>Add a Book</div>
+    </a>
+
+    <a href="{% url 'add_customer' %}">
+        <div class="w-[12rem] bg-[#1c1c1c] hover:bg-[#272727] rounded-md p-4 my-4" href="{% url 'add_customer' %}">
+            <span class="mr-4"><i class="fa-solid fa-user-plus"></i></span>Add Customer</div>
+    </a>
+</div>

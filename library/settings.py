@@ -80,9 +80,10 @@ WSGI_APPLICATION = 'library.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'library django',
-        'USER': 'root',
-        'PASSWORD': 'admin1234',
+        'NAME': 'sapirs_library',
+        # chane user & pass later
+        'USER': 'admin',
+        'PASSWORD': 'admin',
         'HOST':'localhost',
         'PORT':'3306',
     }

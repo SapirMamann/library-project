@@ -1,0 +1,182 @@
+body{
+    background: hsl(0, 0%, 7%);
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+
+    
+    flex-direction: column;
+}
+
+a[id^='model_'], a[id*=' model_']{
+    background-color: hsl(0, 0%, 11%);
+    cursor: pointer;
+    width: 10rem;
+    height: 10rem;
+
+    position: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+
+    padding: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 50%;
+}
+a[id^='model_'] i, a[id*=' model_'] i{
+    color: gray;
+}
+
+a[id^='model_'] p, a[id*=' model_'] + p{
+    color: white;
+}
+
+a[id^='model_']:hover, a[id*=' model_']:hover{
+    background-color: hsl(0, 0%, 13%);
+}
+
+.action_table{
+    background-color: hsl(0, 0%, 10%);
+}
+.action_table:hover{
+    background-color: hsl(0, 0%, 7%);
+}
+.action_delete:hover{
+    background-color: hsl(0, 86%, 22%);
+}
+
+
+form{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 0 30px;
+}
+
+form input{
+    margin-bottom: .2rem;
+    margin-top:    .2rem;
+}
+form label{
+    color: #cbcbcb;
+    font-size: 1.2rem;
+
+    margin-bottom: .4rem;
+}
+
+input{
+    border-radius: 7px;
+}
+
+input:active{
+    border: 1px solid red;
+}
+
+
+input[type=radio]:checked + label:after {
+    opacity: 1;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=number] {
+    width: 100%;
+    height: 36px;
+    /* margin: 13px 0 0 -5px; */
+    margin-bottom: 1.2rem;
+    margin-top: .3rem;
+    padding-left: 10px; 
+    border-radius: 3px 5px 5px 3px;
+    border: solid 1px #cbc9c9; 
+    /* box-shadow: 1px 2px 5px rgba(0,0,0,.09);  */
+
+    background-color: hsl(0, 0%, 15%);
+    box-shadow: none;            
+    border: none;
+    color: #6d6d6d;
+}
+
+
+.main-block {
+    max-width: 340px; 
+    min-height: 285px; 
+    padding: 1rem;
+    /* margin: auto; */
+    border-radius: 5px; 
+    border: solid 1px #ccc;
+    box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+    background: #ebebeb;
+
+    background-color: #222020;
+    box-shadow: none;
+    border: none;
+}
+
+a{
+    color: #ccc;
+}
+
+body, div, h1, form, input, p { 
+    padding: 0;
+    margin: 0;
+    outline: none;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 16px;
+    color: #d4d4d4;
+}
+
+h1 {
+    padding: 10px 0;
+    margin-bottom: 1rem;
+    font-size: 32px;
+    font-weight: 400;
+    text-align: center;
+}
+
+
+
+
+/* 
+3D buttons are cool
+*/
+button{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size:18px;
+    border:none;
+    padding:8px 20px 8px 20px;
+    border-radius:5px; 
+                /* 0px 0px 10px 0px rgba(120, 120, 120, 0.4); */
+    color:white;
+    cursor:pointer;
+    transition:all 0.16s;
+    position:relative;
+    top:0;
+}
+.btn__blue{
+    background:#239dab;
+    box-shadow: 0px 10px 0px 0px #1d7f8a;
+}
+.btn__blue__secondary{
+    background:#239dab;
+    box-shadow: 0px 10px 0px 0px #1d7f8a;
+}
+.btn__green{
+    /* background:#28ab23; */
+    box-shadow: 0px 10px 0px 0px #23ab45;
+}
+.btn__red{
+    /* background:#28ab23; */
+    box-shadow: 0px 10px 0px 0px #ab2323;
+}
+button:focus{
+    outline:none;
+}
+button:active{
+    box-shadow: 0px 5px 0px 0px #1d7f8a;
+    top:5px;
+}

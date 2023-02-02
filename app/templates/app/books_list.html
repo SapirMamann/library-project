@@ -1,13 +1,103 @@
 {% extends 'main.html' %}
-
+{% comment %} 
 {% block content %}
 
 <div>
     {% for book in books %}
     {{book.id}} -- {{book}} -- {{book.author}} -- {{book.genre}} 
-        <a href="{% url 'book-detail' book.id %}"> Go to specific book</a>
+        <a href="{% url 'book_details' book.id %}"> Go to specific book</a>
         <hr>
     {% endfor %}
+</div>
+
+{% endblock content %} {% endcomment %}
+
+{% block content %}
+
+
+<!-- Main container -->
+<div style="background-color: hsl(0, 0%, 9%);" class="relative w-[50rem] h-[35rem] rounded-lg mt-16 p-12">
+
+    <div class="flex gap-x-1 items-center text-sm mb-4">
+        <a href="{% url 'index' %}" class="text-gray-600 hover:text-gray-500">Home</a>
+        <span class="text-gray-800">➜</span>
+        <a class="text-gray-600">Books</a>
+    </div>
+    {% if user.is_authenticated %}
+    <p class="absolute right-12 top-12 text-xs text-gray-600">You're currently logged-in as <b>{{ username }}</b>. Not you? <a href="{% url 'logout' %}" class="text-gray-500">Logout.</a></p>
+    {% else %}
+    <p class="absolute right-12 top-12 text-xs text-gray-600">You aren't logged in at the moment. <a href="{% url 'login' %}" class="text-gray-500">Login</a>?</p>
+    {% endif %}
+{% if books_list %}
+
+<!-- info Notification -->
+<div class="relative bg-blue-600/25 flex w-70 py-6 px-6 rounded-lg mt-12">
+    <i class="fa-solid fa-circle-info text-blue-500 text-2xl mr-4"></i>
+    <p class="text-white mt-1">
+        <!-- Apparently there is no ternary statement so gotta use this really clean syntax -->
+        Displaying {{ books_list.count }} {% if books_list.count > 1 %}books{%else%}book{% endif %} from the database...
+    </p>
+    <a href={% url 'create_book' %}>
+        <button type="button" class="absolute top-5 right-4 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Create Book</button>
+    </a>
+</div>
+
+<div class="flex justify-center items-center mt-16 relative overflow-x-auto">
+    <table class="text-sm text-left text-gray-400">
+        <thead style="background-color: hsl(0, 0%, 13%);" class="text-xs uppercase text-gray-400 rounded-t-lg">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Author
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    In Stock
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Created At
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr class="bg-white" style="background-color: hsl(0, 0%, 15%);" >
+                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="{% url 'book_details' book.id %}">{{ book.name }}</a>
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ book.author }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ book.in_stock }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ book.created_at }}
+                    </td>
+                    <td id='book_actions' class="px-6 py-4 flex gap-x-2">
+                        <!-- View & Delete, Add a tooltip on hover -->
+                        <a href="{% url 'book_details' book.id %}" style="border-radius: 50%;" class="action_table w-8 h-8 p-2 flex justify-center items-center">
+                            <i class="fa-solid fa-circle-info text-sm"></i>
+                        </a>
+                        <a href="{% url 'delete_book' book.id %}" style="border-radius: 50%;" class="action_table action_delete w-8 h-8 p-2 flex justify-center items-center">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% else %}
+<p class="text-gray-400 text-center my-12">No books are available.</p>
+
+{% endif %}
 </div>
 
 {% endblock content %}
