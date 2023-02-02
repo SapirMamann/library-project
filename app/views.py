@@ -1,5 +1,5 @@
 from .models import Customer, Book, Loan
-from .forms import BookForm, CustForm
+from .forms import BookForm, CustForm, LoginForm, RegisterForm
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -13,9 +13,15 @@ def index(request):
     """ 
     home page
     """
-    books = Book.objects.all()
+    books     = Book.objects.all()
+    customers = Customer.objects.all()
+    loans     = Loan.objects.all()
+
+
     book_count = books.count()
-    context = {'msg': 'main page','books': books, 'book_count': book_count}
+    customers_count = customers.count()
+    loans_count = loans.count()
+    context = {'msg': 'main page','books': books, 'book_count': book_count, 'customers_count': customers_count, 'loans_count': loans_count}
     return render(request, 'app/index.html', context)
 
 
@@ -46,7 +52,7 @@ def login_page(request):
         # form = UserCreationForm
         # return render(request, 'app/login.html', {'form': form})
         
-    context = {'page': page}
+    context = {'page': page, 'form': LoginForm}
     return render(request, 'app/login_register.html', context)
         
       
@@ -67,7 +73,7 @@ def register_page(request):
             login(request, user)
             return redirect('index')
         else:
-            return HttpResponse('an error occured during registeration')
+            return HttpResponse('An error has occured during registration. Form is invalid.')
     
     context = {'form': form}
     return render(request, 'app/login_register.html', context)
@@ -85,7 +91,7 @@ def add_book(request):
         if form.is_valid():
             book = form.save(commit=False)  # <<<<<<< i forgot what commit means
             book.save()
-            return redirect('books-list')
+            return redirect('books_list')
         
     context = {'form': form}
     return render(request, 'app/book_form.html', context)
@@ -96,7 +102,7 @@ def books_list(request):
     show all books
     """
     books = Book.objects.all()
-    context = {'books': books}
+    context = {'books': books, 'username': request.user.get_username()}
     return render(request, 'app/books_list.html', context)
 
 
@@ -122,7 +128,7 @@ def add_cust(request):
             address = request.POST.get('address'),
             age = request.POST.get('age'),
         )
-        return redirect('books-list')
+        return redirect('books_list')
     
     context = {'form': form}
     return render(request, 'app/cust_form.html', context)
@@ -151,7 +157,7 @@ def loans_list(request):
     """
     
 
-def loan_detail(request):
+def loan_details(request):
     """
     show details of a specific loan
     """

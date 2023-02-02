@@ -1,32 +1,37 @@
+{% extends 'main.html' %}
+
 {% block content %}
-{% if page == 'login' %}
-<div>
-    <form method="POST" action="">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" name="username" placeholder="Enter Username">
-        
-        <label for="password">Password:</label>
-        <input type="password" name="password" placeholder="Enter Password">
-        
-        <input type="submit" value="Login">
-    </form>
 
-<p>havent signed up yet?</p>
-<a href="{% url 'register' %}">Sign up</a>
+<!-- Wrapper -->
+<div style="height: 100vh; width: 100vw" class="flex items-center justify-center">
+    {% if page == 'login' %}
+        <div class="main-block">
+        <h1 class="text-bold">Login</h1>
+            <form action="{% url 'login' %}" class="px-12" method="post">
+                {% csrf_token %}
+                {{ form }}
+
+                <a class="text-gray-600 text-xs" href="{% url 'register' %}">Don't have an account? Register</a>
+                <div class="btn-block">
+                    <button style="background: #239dab; width: 100%" class="btn__blue" type="submit" >Submit</button>
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div style="margin-top: 1rem;margin-bottom:1rem;" class="main-block">
+            <h1>Register</h1>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    
+                    <a class="text-gray-600 text-xs" href="{% url 'login' %}">Already have an account? Login</a>
+                    <div class="btn-block">
+                        <button style="background: #239dab; width: 100%" class="btn__blue" type="submit" >Submit</button>
+                    </div>
+                </form>
+
+        </div>
+    {% endif %}
 </div>
-
-{% else %}
-<div>
-    <form method="POST" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Register">
-    </form>
-
-<p>Already signed up?</p>
-<a href="{% url 'login' %}">Login</a>
-</div>
-{% endif %}
 
 {% endblock content %}

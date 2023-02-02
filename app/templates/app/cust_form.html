@@ -2,10 +2,12 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    <form method="POST" action="">
+    <form method="POST" action="{% url 'add_customer' %}">
         {% csrf_token %}
         {{form.as_p}}
-        <input type="submit" value="submit">
+        <div class="btn-block">
+            <button style="background: #239dab; width: 100%" class="btn__blue" type="submit" >Submit</button>
+        </div>
     </form>
     {% endif %}
 {% endblock content %}

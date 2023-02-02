@@ -1,11 +1,17 @@
 {% block content %}
 <div>
-    <h2>There Are {{book_count}} Books.. </h2>
+    <p class="text-[#acacac] mt-16">There are {% if book_count == 0 %}no{% else %} {{book_count}} {% endif %} books, </p>
+    <p class="text-[#acacac] mt-2" >{% if customers_count == 0 %}no{% else %} {{customers_count}} {% endif %} customers, </p>
+    <p class="text-[#acacac] mt-2" >{% if loans_count == 0 %}no{% else %} {{loans_count}} {% endif %} loans. </p>
 </div>
+
+<!-- TODO: Implement tables with data overview of books, customers, and loans... -->
+{% comment %} 
 {% for book in books %}
 
     <div>
-        <a href="{% url 'book-detail' book.id %}">{{book.name}}</a>
+        <a href="{% url 'book_details' book.id %}">{{book.name}}</a>
     </div>
-{% endfor %}
+{% endfor %} 
+{% endcomment %}
 {% endblock content %}

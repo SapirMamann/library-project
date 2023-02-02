@@ -1,23 +1,43 @@
-<header>
-    <div name="logo">
-        <a href="{% url 'index' %}">
-            <h1>Sapir's Library</h1>
-        </a>
-    </div>
-    {% if request.user.is_authenticated %}
-    <div name="logged in">
-        <p>{{user.username}}</p>
-    </div>
-    
-    <div>
-        <a href="{% url 'logout' %}">sign out</a>
-    </div>
+{% load static %}
 
-    {% else %}
-    <div name="not logged in">
-        <a href="{% url 'login' %}">
-            <p>login</p>
-        </a>
+<head>
+    <link rel="stylesheet" href="{% static 'library/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>  
+</head>
+    <header  class="flex w-full px-12 py-6 items-center" style="background-color: #1c1c1c;">
+        <a   class="flex-start text-white text-3xl" href="{% url 'index' %}">Sapir's Library</a>
+        <div class="absolute right-12" id="nav_group">
+            <a href="{% url 'index' %}"          class="mr-6 text-gray-500 hover:text-gray-300">Home</a>
+            <a href="{% url 'customers_list' %}" class="mr-6 text-gray-500 hover:text-gray-300">Customers</a>
+            <a href="{% url 'books_list' %}"     class="mr-6 text-gray-500 hover:text-gray-300">Books</a>
+            <a href="{% url 'loans_list' %}"     class="mr-6 text-gray-500 hover:text-gray-300">Loans</a>
+        </div>
+    </header>
+    {% url 'register' as register_url %}
+    {% url 'login'    as login_url %}
+    {% if request.get_full_path != register_url %}
+        {% if request.get_full_path != login_url %}
+        <div class="bg-[#1c1c1c] w-[58rem] flex flex-col p-6 my-12 mx-16 rounded-md shadow-md" id="auth">
+            {% if request.user.is_authenticated %}
+                <div class="flex flex-row gap-x-2" id="user_profile">
+                    <!-- Random Profile Img using DiceBear -->
+                    <img class="shadow-sm w-20 h-20 rounded-full" src="https://avatars.dicebear.com/api/adventurer-neutral/{{user.username}}.svg" />
+                    <div class="flex flex-col ml-4">
+                        <h2 class="text-2xl mb-4">Welcome back, {{user.username}}!</h2>
+                        <button class="btn__red w-all text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" onClick="window.location.href='{% url 'logout' %}'">Logout</button>
+                    </div>
+                </div>
+            {% else %}
+                <h2 class="text-2xl mb-6">You aren't logged in.</h2>
+                <div class="flex flex-row gap-x-4">
+                    <button style="background: #239dab" class="btn__blue" type="submit" onClick="window.location.href='{% url 'login' %}'">Login</button>
+                    <button style="background: #239dab" class="btn__blue__secondary" type="submit" onClick="window.location.href='{% url 'register' %}'">   Register</button>
+                    {% comment %} <a class="bg-blue-600 hover:bg-blue-500 px-4 py-3 w-24 rounded-xl hover:shadow-lg hover:shadow-sm" href="{% url 'login' %}">Login</a>
+                    <a class="bg-yellow-600 hover:bg-yellow-500 px-4 py-3 w-24 rounded-xl hover:shadow-lg hover:shadow-sm" href="{% url 'register' %}">Register</a> {% endcomment %}
+                </div>
+                {% endif %}
+        {% endif %}
+        </div>
     {% endif %}
-
-</header>
